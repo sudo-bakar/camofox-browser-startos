@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.svg" alt="Camofox Browser Logo" width="21%">
+  <img src="icon.png" alt="Camofox Browser Logo" width="21%">
 </p>
 
 # Camofox Browser on StartOS
