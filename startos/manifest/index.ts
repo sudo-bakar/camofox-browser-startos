@@ -5,7 +5,7 @@ export const manifest = setupManifest({
   id: 'camofox-browser',
   title: 'Camofox Browser',
   license: 'MIT',
-  packageRepo: 'https://github.com/Start9Labs/camofox-browser-startos',
+  packageRepo: 'https://github.com/sudo-bakar/camofox-browser-startos',
   upstreamRepo: 'https://github.com/jo-inc/camofox-browser',
   marketingUrl: 'https://github.com/jo-inc/camofox-browser',
   donationUrl: null,
