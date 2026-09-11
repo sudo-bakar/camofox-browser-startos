@@ -17,5 +17,11 @@ export const manifest = setupManifest({
       arch: ['x86_64', 'aarch64'],
     },
   },
+  // The Camoufox (Firefox) engine launches lazily, but once it does it is a
+  // full browser; 2 GB is a sane lower bound, matching other browser-based
+  // packages.
+  hardwareRequirements: {
+    ram: 2 * 1024 ** 3,
+  },
   dependencies: {},
 })

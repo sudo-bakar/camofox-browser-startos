@@ -89,10 +89,11 @@ One interface:
 ## Installation and First-Run Flow
 
 Install completes without user interaction. During install init the package
-generates a 64-character `CAMOFOX_ACCESS_KEY` and stores it. The daemon starts
-immediately with that key, with crash telemetry hardcoded off. The browser
-engine launches lazily on first tab request and shuts down after its idle
-timeout; the `/health` endpoint is reachable without auth.
+generates a 64-character `CAMOFOX_ACCESS_KEY` and stores it. Init re-seeds the
+key any time it is missing, so the API never comes up unauthenticated. The
+daemon starts immediately with that key, with crash telemetry hardcoded off.
+The browser engine launches lazily on first tab request and shuts down after
+its idle timeout; the `/health` endpoint is reachable without auth.
 
 ## Actions
 
@@ -128,8 +129,10 @@ Strategy: the `main` volume is copied wholesale (`ofVolumes`). That captures
 session profiles, imported cookies, and uploads. Traces (transient zips) are
 excluded on purpose — they are temporary and can be large; nothing lost by
 dropping them. A restored instance is usable immediately if the access key is
-present (it is part of `store.json` on the same volume). Re-attach the same
-key to dependent agents after a restore to a new box.
+present (it is part of `store.json` on the same volume). If a restore loses
+`store.json`, init regenerates a fresh key instead of starting an
+unauthenticated API — check it with **View API Access Key** and re-attach it
+to dependent agents after a restore to a new box.
 
 ## Limitations and Differences
 

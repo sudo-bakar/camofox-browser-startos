@@ -27,6 +27,6 @@ verified, tried, and decided belongs in the commit message and the PR body.
 ## This repo
 
 - Single-daemon wrapper around the upstream `ghcr.io/jo-inc/camofox-browser` image; the Camoufox engine binary is baked into that image — nothing to build.
-- The access key design: generated on install by `startos/init/seedAccessKey.ts`, read reactively in both `startos/main.ts` (`CAMOFOX_ACCESS_KEY`) and `startos/interfaces.ts` (proxy `addSsl.auth` bearer). Rotating the key restarts the daemon and re-keys the proxy edge on their `.const()` deps — do not change one read to `.once()` without the other.
+- The access key design: generated on install by `startos/init/seedAccessKey.ts` (and re-seeded there whenever missing), read reactively in both `startos/main.ts` (`CAMOFOX_ACCESS_KEY`) and `startos/interfaces.ts` (proxy `addSsl.auth` bearer). Rotating the key restarts the daemon and re-keys the proxy edge on their `.const()` deps — do not change one read to `.once()` without the other. The seed's own read is deliberately `.once()` (non-reactive) so rotation does not re-run init.
 - Mountpoints in `main.ts` assume the image runs as root with `~` = `/root`; re-verify (`whoami`, `$HOME`, `~/.camofox` layout) on every upstream bump — see `UPDATING.md`.
 
