@@ -93,7 +93,8 @@ generates a 64-character `CAMOFOX_ACCESS_KEY` and stores it. Init re-seeds the
 key any time it is missing, so the API never comes up unauthenticated. The
 daemon starts immediately with that key, with crash telemetry hardcoded off.
 The browser engine launches lazily on first tab request and shuts down after
-its idle timeout; the `/health` endpoint is reachable without auth.
+its idle timeout. (`/health` is exempt from the in-container access key, but
+the proxy edge gates it like every other route — send the key.)
 
 ## Actions
 
@@ -121,7 +122,9 @@ One daemon readiness check, **Browser API**:
   the Node server is up and the Camoufox engine reports connected. A failure
   means the process crashed, is still starting, or the Firefox engine cannot
   launch — check the service logs for `camoufox launched` vs an error line.
-  Note the check needs no auth: `/health` is exempt from the access key.
+  The probe needs no auth: it runs in-container, where `/health` is exempt
+  from the access key (the TLS edge still gates `/health`; agents polling it
+  externally must send the key).
 
 ## Backups and Restore
 
