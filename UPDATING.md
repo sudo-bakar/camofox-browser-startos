@@ -31,7 +31,8 @@ curl -s https://ghcr.io/v2/jo-inc/camofox-browser/tags/list
    cookies, uploads}` under the image's home still match the mountpoints in
    `startos/main.ts` (the Camoufox engine layout and default directories have
    shifted between upstream releases before).
-4. `npm run check && make` and install-verify against a running host.
+4. `make` and install-verify against a running host. (The SDK's build gate
+   runs type-check, format-check, and bundling itself.)
 
 The Camoufox engine version is pinned separately inside the upstream image by
 its `CAMOUFOX_VERSION`/`CAMOUFOX_RELEASE` build args and does not need a
